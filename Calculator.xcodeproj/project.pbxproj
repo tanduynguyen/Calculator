@@ -19,6 +19,7 @@
 		8D8EF2F4169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F2169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard */; };
 		8D8EF2F7169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F5169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard */; };
 		8D8EF2FA169ACD7F00A19C5B /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */; };
+		8D8EF302169AD4A300A19C5B /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		8D8EF2F6169ACD7F00A19C5B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		8D8EF2F8169ACD7F00A19C5B /* CalculatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorViewController.h; sourceTree = "<group>"; };
 		8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
+		8D8EF300169AD4A300A19C5B /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
+		8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 				8D8EF2F8169ACD7F00A19C5B /* CalculatorViewController.h */,
 				8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */,
 				8D8EF2E1169ACD7F00A19C5B /* Supporting Files */,
+				8D8EF300169AD4A300A19C5B /* CalculatorBrain.h */,
+				8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 				8D8EF2E7169ACD7F00A19C5B /* main.m in Sources */,
 				8D8EF2EB169ACD7F00A19C5B /* CalculatorAppDelegate.m in Sources */,
 				8D8EF2FA169ACD7F00A19C5B /* CalculatorViewController.m in Sources */,
+				8D8EF302169AD4A300A19C5B /* CalculatorBrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
