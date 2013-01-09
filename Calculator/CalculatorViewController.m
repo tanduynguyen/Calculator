@@ -13,6 +13,7 @@
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic) BOOL alreadyDot;
 @property (nonatomic, strong) CalculatorBrain *brain;
+@property (nonatomic, strong) NSString *stackTest;
 @end
 
 @implementation CalculatorViewController
@@ -22,6 +23,13 @@
         _brain = [[CalculatorBrain alloc] init];
     }
     return _brain;
+}
+
+- (NSString *)stackTest {
+    if (!_stackTest) {
+        _stackTest = [[NSString alloc] init];
+    }
+    return _stackTest;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -63,6 +71,7 @@
 - (IBAction)clearPressed {
     self.display.text = @"0";
     self.stackDisplay.text = @"";
+    self.stackTest = @"";
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.alreadyDot = NO;
     [self.brain clearOperandStack];
@@ -98,7 +107,8 @@
     }
     
     //Add operation to stackDisplay after the current text
-    self.stackDisplay.text = [NSString stringWithFormat:@"%@ %@", self.stackDisplay.text, sender.currentTitle];
+    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, sender.currentTitle];
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
      
     NSString *operation = [sender currentTitle];
 
@@ -120,7 +130,8 @@
     self.alreadyDot = NO;
     
     //Add operand to stackDisplay
-    self.stackDisplay.text = [NSString stringWithFormat:@"%@ %@", self.stackDisplay.text, self.display.text];
+    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, self.display.text];
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
 }
 
 @end
