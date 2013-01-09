@@ -56,14 +56,28 @@
             self.userIsInTheMiddleOfEnteringANumber = YES;
         }
     }
+    
+    
 }
 
+- (IBAction)clearPressed {
+    self.display.text = @"0";
+    self.stackDisplay.text = @"";
+    self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.alreadyDot = NO;
+    [self.brain clearOperandStack];
+}
+
+
 - (IBAction)operationPressed:(UIButton *)sender {
+    
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
     }
     
-    
+    //Add operation to stackDisplay after the current text
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ %@", self.stackDisplay.text, sender.currentTitle];
+     
     NSString *operation = [sender currentTitle];
 
     double result = [self.brain performOperation:operation];
@@ -72,15 +86,19 @@
 
 
 - (IBAction)signPressed {
-    if ([self.display.text doubleValue] > 0) {
-        self.display.text = [@"-" stringByAppendingString:self.display.text];
-    }
+//    if ([self.display.text doubleValue] > 0) {
+//        self.display.text = [@"-" stringByAppendingString:self.display.text];
+//    }
+    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
 }
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.alreadyDot = NO;
+    
+    //Add operand to stackDisplay
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ %@", self.stackDisplay.text, self.display.text];
 }
 
 @end

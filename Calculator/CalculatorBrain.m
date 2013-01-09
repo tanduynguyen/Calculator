@@ -63,4 +63,8 @@
     [self pushOperand:result];
     return result;
 }
+
+- (void)clearOperandStack {
+    [self.operanStack removeAllObjects];
+}
 @end
