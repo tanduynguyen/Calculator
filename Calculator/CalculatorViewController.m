@@ -68,6 +68,28 @@
     [self.brain clearOperandStack];
 }
 
+- (IBAction)backspacePressed {
+    if (self.userIsInTheMiddleOfEnteringANumber) {        
+        if (self.display.text.length  > 1) {
+            NSUInteger index = self.display.text.length;
+            
+//          tanduy implement 2nd method to remove dot at the end
+//            if ([[self.display.text characterAtIndex:index] == '.']) {
+//                self
+//            }
+//            [self.display.text ra
+            
+            self.display.text = [self.display.text substringToIndex:index - 1];
+            NSRange range = [self.display.text rangeOfString:@"."];
+            if (range.location == NSNotFound) {
+                self.alreadyDot = NO;
+            }
+        } else {
+            self.display.text = @"0";
+        }
+    }
+    
+}
 
 - (IBAction)operationPressed:(UIButton *)sender {
     
