@@ -127,6 +127,13 @@
     self.display.text = [NSString stringWithFormat:@"%g", result];
 }
 
+- (IBAction)testPressed {
+    NSDictionary *variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [[NSNumber alloc] initWithDouble:3], @"a",
+                                    [[NSNumber alloc] initWithDouble:-4], @"x", nil];
+    
+    self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:self.brain.program usingVariableValues:variableValues]];
+}
 
 - (IBAction)signPressed {
 //    if ([self.display.text doubleValue] > 0) {
