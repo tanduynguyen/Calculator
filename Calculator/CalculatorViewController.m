@@ -18,6 +18,22 @@
 
 @implementation CalculatorViewController
 
+- (void)awakeFromNib {
+    self.userIsInTheMiddleOfEnteringANumber = YES;
+}
+
+
+//- (id)initWithNibName:(NSString *)nibNameOrNilString bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNilString bundle:nibBundleOrNil];
+//    
+//    if (self) {
+//
+//    }
+//    
+//    return self;
+//}
+
 - (CalculatorBrain *)brain {
     if (!_brain) {
         _brain = [[CalculatorBrain alloc] init];
@@ -33,46 +49,42 @@
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
-    NSString *digit = sender.currentTitle;    
+    NSString *pressedDigit = sender.currentTitle;
+    // Replace default display @"0" with an initial digit (not dot sign)
     if ([self.display.text isEqualToString:@"0"]) {
-        
-        if ([digit isEqualToString:@"0"]) {
-            self.alreadyDot = NO;
-            self.userIsInTheMiddleOfEnteringANumber = YES;
-            return;
-        } else if ([digit isEqualToString:@"."]){
-            self.userIsInTheMiddleOfEnteringANumber = YES;
-        } else {
+        if (![pressedDigit isEqualToString:@"."]) {
             self.userIsInTheMiddleOfEnteringANumber = NO;
         }
-    }     
+    }
+    
+    // For not appending another dot @"."
+    if ([pressedDigit isEqualToString:@"."] && self.alreadyDot){
+        return;
+    }
+
     
     if (self.userIsInTheMiddleOfEnteringANumber)
     {
-        if (!self.alreadyDot || ![digit isEqualToString:@"."]) {
-            self.display.text = [self.display.text stringByAppendingString:digit];
-            if ([digit isEqualToString:@"."]) {
+        if (!self.alreadyDot || ![pressedDigit isEqualToString:@"."]) {
+            self.display.text = [self.display.text stringByAppendingString:pressedDigit];
+            if ([pressedDigit isEqualToString:@"."]) {
                 self.alreadyDot = YES;
             }
-            
         }
-    }
-    else
-    {
-        if (![digit isEqualToString:@"."]) {
-            self.display.text = digit;
-            self.userIsInTheMiddleOfEnteringANumber = YES;
+    } else {
+        // For not replacing @"0" with @"."
+        if (![pressedDigit isEqualToString:@"."]) {
+            self.display.text = pressedDigit;
         }
+        self.userIsInTheMiddleOfEnteringANumber = YES;
     }
-    
-    
 }
 
 - (IBAction)clearPressed {
     self.display.text = @"0";
     self.stackDisplay.text = @"";
     self.stackTest = @"";
-    self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.userIsInTheMiddleOfEnteringANumber = YES;
     self.alreadyDot = NO;
     [self.brain clearOperandStack];
 }
@@ -83,11 +95,10 @@
             NSUInteger index = self.display.text.length;
             
 //          tanduy implement 2nd method to remove dot at the end
-//            if ([[self.display.text characterAtIndex:index] == '.']) {
+ //           if ([(NSString *)[self.display.text characterAtIndex:index] isEqualToString:[@"." ]]) {
 //                self
-//            }
-//            [self.display.text ra
-            
+ //           }
+
             self.display.text = [self.display.text substringToIndex:index - 1];
             NSRange range = [self.display.text rangeOfString:@"."];
             if (range.location == NSNotFound) {
