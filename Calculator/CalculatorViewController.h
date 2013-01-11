@@ -11,5 +11,6 @@
 @interface CalculatorViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *display;
 @property (strong, nonatomic) IBOutlet UILabel *stackDisplay;
+@property (strong, nonatomic) IBOutlet UILabel *variableDisplay;
 
 @end

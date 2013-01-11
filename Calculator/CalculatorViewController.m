@@ -14,6 +14,7 @@
 @property (nonatomic) BOOL alreadyDot;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSString *stackTest;
+@property (nonatomic, strong) NSDictionary *variableValues;
 @end
 
 @implementation CalculatorViewController
@@ -48,8 +49,17 @@
     return _stackTest;
 }
 
+- (NSDictionary *)variableValues {
+    if (!_variableValues) {
+        _variableValues = [[NSDictionary alloc] init];
+    }
+    return _variableValues;
+}
+
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *pressedDigit = sender.currentTitle;
+    
+    
     // Replace default display @"0" with an initial digit (not dot sign)
     if ([self.display.text isEqualToString:@"0"]) {
         if (![pressedDigit isEqualToString:@"."]) {
@@ -94,10 +104,6 @@
         if (self.display.text.length  > 1) {
             NSUInteger index = self.display.text.length;
             
-//          tanduy implement 2nd method to remove dot at the end
- //           if ([(NSString *)[self.display.text characterAtIndex:index] isEqualToString:[@"." ]]) {
-//                self
- //           }
 
             self.display.text = [self.display.text substringToIndex:index - 1];
             NSRange range = [self.display.text rangeOfString:@"."];
@@ -111,28 +117,47 @@
     
 }
 
-- (IBAction)operationPressed:(UIButton *)sender {
+- (IBAction)operationPressed:(UIButton *)sender {    
+    NSString *operation = [sender currentTitle];
+    
+    //check variable
+//    if ([operation isEqualToString:@"π"] || [operation isEqualToString:@"a"] || [operation isEqualToString:@"b"] || [operation isEqualToString:@"x"]) {
+//       self.userIsInTheMiddleOfEnteringANumber = NO;
+//    }
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
     }
     
     //Add operation to stackDisplay after the current text
-    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, sender.currentTitle];
-    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
-     
-    NSString *operation = [sender currentTitle];
+//    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, operation];
+    
+    
+    
 
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g", result];
+    
+    self.stackTest = [CalculatorBrain descriptionOfProgram:self.brain.program];
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
 }
 
 - (IBAction)testPressed {
-    NSDictionary *variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
+    self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [[NSNumber alloc] initWithDouble:3], @"a",
                                     [[NSNumber alloc] initWithDouble:-4], @"x", nil];
     
-    self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:self.brain.program usingVariableValues:variableValues]];
+    self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.variableValues]];
+    
+    NSMutableString *variableValueDescription = [[NSMutableString alloc] initWithString:@""];
+    for (id key in self.variableValues) {
+        if ([key isKindOfClass:[NSString class]]) {
+            NSString *variableName = key;
+            NSNumber *variableValue = [self.variableValues objectForKey:key];
+            [variableValueDescription appendFormat:@"%@ = %@  ", variableName, variableValue];
+        }
+    }
+    self.variableDisplay.text = variableValueDescription;
 }
 
 - (IBAction)signPressed {
@@ -148,8 +173,20 @@
     self.alreadyDot = NO;
     
     //Add operand to stackDisplay
-    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, self.display.text];
+//    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, self.display.text];
+    self.stackTest = [CalculatorBrain descriptionOfProgram:self.brain.program];
     self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
+}
+- (IBAction)undoPressed {
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        [self backspacePressed];
+        if ([self.display.text isEqualToString:@"0"]) {
+            self.userIsInTheMiddleOfEnteringANumber = NO;
+        }
+    } else {
+        [self.brain popAnObjectOutOfProgramStack];
+        [self operationPressed:nil];
+    }
 }
 
 @end

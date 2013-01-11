@@ -41,22 +41,113 @@
     return [self popOperandOffProgramStack:stack usingVariableValues:variableValues];
 }
 
-+ (NSSet *)variablesUsedInProgram:(id)program {
-    //get all the names of the variables used in a given program (returned as an NSSet of NSString objects)
-    if ([program isKindOfClass:[NSArray class]]) {        
-      //  return [[NSSet alloc] initWithObjects:@"a", @"b", @"x", nil];
-        
-    }
-    return nil;
+
++ (BOOL)isVariable:(NSString *)variable {
+    NSSet *definedVariables = [[NSSet alloc] initWithObjects:@"x", @"a", @"b", nil];
+    return [definedVariables containsObject:variable];
 }
 
-+ (NSString *)decriptionOfProgram:(id)program {
-    return @"";
++ (BOOL)isSingleOperandOperation:(NSString *)operation {
+    NSSet *definedOperations = [[NSSet alloc] initWithObjects:@"sin", @"cos", @"sqrt", nil];
+    return [definedOperations containsObject:operation];
+}
+
++ (BOOL)isMultiOperandOperation:(NSString *)operation {
+    NSSet *definedOperations = [[NSSet alloc] initWithObjects:@"+", @"-", @"*", @"/" , nil];
+    return [definedOperations containsObject:operation];
+}
+
++ (BOOL)isNoOperandOperation:(NSString *)operation {
+    NSSet *definedOperations = [[NSSet alloc] initWithObjects:@"π", nil];
+    return [definedOperations containsObject:operation];
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program {
+    //get all the names of the variables used in a given program (returned as an NSSet of NSString objects)
+    
+    NSMutableSet *variablesUsedInProgram = [[NSMutableSet alloc] init];
+    for (id obj in program) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            NSString *variableOrOperation = obj;
+            if ([CalculatorBrain isVariable:variableOrOperation]) {
+                [variablesUsedInProgram addObject:variableOrOperation];
+            }
+        }
+    }
+    return [variablesUsedInProgram copy];
+}
+
+
++ (NSString *) descriptionOfTopOfStack:(NSMutableArray *)stack {
+    NSString *description;
+    id topOfStack = [stack lastObject];
+    if (topOfStack) [stack removeLastObject];
+    
+    if ([topOfStack isKindOfClass:[NSString class]]) {
+        description = topOfStack;
+        if (![self isVariable:description]) {
+            if ([self isMultiOperandOperation:description]) {
+                NSString *firstOperand = [self descriptionOfTopOfStack:stack];
+                NSString *secondOperand = [self descriptionOfTopOfStack:stack];
+                if ([description isEqualToString:@"*"]) {
+                    description = [NSString stringWithFormat:@"%@ %@ %@",secondOperand, description, firstOperand];
+                } else {
+                    description = [NSString stringWithFormat:@"(%@ %@ %@)",secondOperand, description, firstOperand];
+                }
+            } else if ([self isSingleOperandOperation:description]) {
+                NSString *operandDescription = [self descriptionOfTopOfStack:stack];
+                if ([operandDescription hasPrefix:@"("]) {
+                    description = [NSString stringWithFormat:@"%@%@", description, operandDescription];
+                } else {
+                    description = [NSString stringWithFormat:@"%@(%@)", description, operandDescription];
+                }
+                
+            } else if ([self isNoOperandOperation:description]) {
+                description = [NSString stringWithFormat:@"%@",description];
+            }
+        }
+    } else {
+        description = [NSString stringWithFormat:@"%g", [topOfStack doubleValue]];
+    }
+    return description;
+}
+
++ (NSString *)descriptionOfProgram:(id)program {
+    NSMutableArray *stack;
+    if ([program isKindOfClass:[NSArray class]]) {
+        stack = [program mutableCopy];
+    }
+    
+    NSString *multiProgramDescription;
+    while (stack.count > 0) {
+        NSString *description = [CalculatorBrain descriptionOfTopOfStack:stack];
+        
+        if ([description hasPrefix:@"("]) {
+            NSInteger charIndex = [description length] - 2;
+            if (charIndex > 0) {
+                NSRange range = {.location = 1, .length = charIndex};
+                description = [description substringWithRange:range];
+            }
+            
+        }
+        
+        if (multiProgramDescription) {
+            multiProgramDescription = [NSString stringWithFormat:@"%@, %@", multiProgramDescription, description];
+        } else {
+            multiProgramDescription = description;
+        }
+    }
+    
+    return multiProgramDescription;
 }
 
 - (void)pushOperand:(double)operand {
     NSNumber *operandObject = [NSNumber numberWithDouble:operand];
     [self.programStack addObject:operandObject];
+}
+
+- (void)popAnObjectOutOfProgramStack {
+    [self.programStack removeLastObject];
 }
 
 
@@ -109,8 +200,9 @@
 
 
 - (double)performOperation:(NSString *)operation {
-    
-    [self.programStack addObject:operation];
+    if (operation) {
+        [self.programStack addObject:operation];
+    }
     return [CalculatorBrain runProgram:self.program];
 }
 
