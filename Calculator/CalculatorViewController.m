@@ -102,14 +102,14 @@
 - (IBAction)backspacePressed {
     if (self.userIsInTheMiddleOfEnteringANumber) {        
         if (self.display.text.length  > 1) {
-            NSUInteger index = self.display.text.length;
-            
-
-            self.display.text = [self.display.text substringToIndex:index - 1];
-            NSRange range = [self.display.text rangeOfString:@"."];
-            if (range.location == NSNotFound) {
+            if ([self.display.text hasSuffix:@"."]) {
                 self.alreadyDot = NO;
             }
+            
+            NSUInteger index = self.display.text.length;
+
+            self.display.text = [self.display.text substringToIndex:index - 1];
+
         } else {
             self.display.text = @"0";
         }
@@ -118,12 +118,7 @@
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {    
-    NSString *operation = [sender currentTitle];
-    
-    //check variable
-//    if ([operation isEqualToString:@"π"] || [operation isEqualToString:@"a"] || [operation isEqualToString:@"b"] || [operation isEqualToString:@"x"]) {
-//       self.userIsInTheMiddleOfEnteringANumber = NO;
-//    }
+    NSString *operation = [sender currentTitle];    
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
@@ -161,10 +156,12 @@
 }
 
 - (IBAction)signPressed {
-//    if ([self.display.text doubleValue] > 0) {
-//        self.display.text = [@"-" stringByAppendingString:self.display.text];
-//    }
-    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
+//    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
+    if (![self.display.text hasPrefix:@"-"]) {
+        self.display.text = [@"-" stringByAppendingString:self.display.text];
+    } else {
+        self.display.text = [self.display.text substringFromIndex:1];
+    }
 }
 
 - (IBAction)enterPressed {

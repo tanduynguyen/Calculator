@@ -89,14 +89,14 @@
             if ([self isMultiOperandOperation:description]) {
                 NSString *firstOperand = [self descriptionOfTopOfStack:stack];
                 NSString *secondOperand = [self descriptionOfTopOfStack:stack];
-                if ([description isEqualToString:@"*"]) {
+                if ([description isEqualToString:@"*"] || [description isEqualToString:@"/"]) {
                     description = [NSString stringWithFormat:@"%@ %@ %@",secondOperand, description, firstOperand];
                 } else {
                     description = [NSString stringWithFormat:@"(%@ %@ %@)",secondOperand, description, firstOperand];
                 }
             } else if ([self isSingleOperandOperation:description]) {
                 NSString *operandDescription = [self descriptionOfTopOfStack:stack];
-                if ([operandDescription hasPrefix:@"("]) {
+                if ([operandDescription hasPrefix:@"("] && [operandDescription hasSuffix:@")"]) {
                     description = [NSString stringWithFormat:@"%@%@", description, operandDescription];
                 } else {
                     description = [NSString stringWithFormat:@"%@(%@)", description, operandDescription];
@@ -122,7 +122,7 @@
     while (stack.count > 0) {
         NSString *description = [CalculatorBrain descriptionOfTopOfStack:stack];
         
-        if ([description hasPrefix:@"("]) {
+        if ([description hasPrefix:@"("] && [description hasSuffix:@")"]) {
             NSInteger charIndex = [description length] - 2;
             if (charIndex > 0) {
                 NSRange range = {.location = 1, .length = charIndex};
@@ -137,6 +137,8 @@
             multiProgramDescription = description;
         }
     }
+    
+
     
     return multiProgramDescription;
 }
