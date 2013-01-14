@@ -13,7 +13,7 @@
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic) BOOL alreadyDot;
 @property (nonatomic, strong) CalculatorBrain *brain;
-@property (nonatomic, strong) NSString *stackTest;
+@property (nonatomic, strong) NSString *programStackDescription;
 @property (nonatomic, strong) NSDictionary *variableValues;
 @end
 
@@ -42,11 +42,11 @@
     return _brain;
 }
 
-- (NSString *)stackTest {
-    if (!_stackTest) {
-        _stackTest = [[NSString alloc] init];
+- (NSString *)programStackDescription {
+    if (!_programStackDescription) {
+        _programStackDescription = [[NSString alloc] init];
     }
-    return _stackTest;
+    return _programStackDescription;
 }
 
 - (NSDictionary *)variableValues {
@@ -93,7 +93,8 @@
 - (IBAction)clearPressed {
     self.display.text = @"0";
     self.stackDisplay.text = @"";
-    self.stackTest = @"";
+    self.programStackDescription = @"";
+    self.variableDisplay.text = @"";
     self.userIsInTheMiddleOfEnteringANumber = YES;
     self.alreadyDot = NO;
     [self.brain clearOperandStack];
@@ -131,23 +132,32 @@
     id result = [self.brain performOperation:operation];
 
     if ([result isKindOfClass:[NSString class]]) {
-        self.display.text = [NSString stringWithFormat:@"%@", result];
+        self.variableDisplay.text = [NSString stringWithFormat:@"%@", result];
     } else if ([result isKindOfClass:[NSNumber class]]) {
         self.display.text = [NSString stringWithFormat:@"%g", [result doubleValue]];
     }
     
-    self.stackTest = [CalculatorBrain descriptionOfProgram:self.brain.program];
-    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
+    self.programStackDescription = [CalculatorBrain descriptionOfProgram:self.brain.program];
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.programStackDescription];
 }
 
-- (IBAction)testPressed {
-    self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [[NSNumber alloc] initWithDouble:3], @"a",
-                                    [[NSNumber alloc] initWithDouble:-4], @"x", nil];
+- (IBAction)testPressed:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"Test 1"]) {
+        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [[NSNumber alloc] initWithDouble:3], @"a",
+                               [[NSNumber alloc] initWithDouble:0], @"b",
+                               [[NSNumber alloc] initWithDouble:-4], @"x", nil];
+    } else if ([sender.currentTitle isEqualToString:@"Test 2"]) {
+        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [[NSNumber alloc] initWithDouble:1], @"a",
+                               [[NSNumber alloc] initWithDouble:5], @"b",
+                               [[NSNumber alloc] initWithDouble:10], @"x", nil];
+    }
+    
     
     id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.variableValues];
     if ([result isKindOfClass:[NSString class]]) {
-        self.display.text = [NSString stringWithFormat:@"%@", result];
+        self.variableDisplay.text = [NSString stringWithFormat:@"%@", result];
     } else if ([result isKindOfClass:[NSNumber class]]) {
         self.display.text = [NSString stringWithFormat:@"%g", [result doubleValue]];
     }
@@ -163,10 +173,11 @@
     self.variableDisplay.text = variableValueDescription;
 }
 
+
 - (IBAction)signPressed {
+//    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
     if ([self.display.text isEqualToString:@"0"])
         return;
-//    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
     if (![self.display.text hasPrefix:@"-"]) {
         self.display.text = [@"-" stringByAppendingString:self.display.text];
     } else {
@@ -181,8 +192,8 @@
     
     //Add operand to stackDisplay
 //    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, self.display.text];
-    self.stackTest = [CalculatorBrain descriptionOfProgram:self.brain.program];
-    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
+    self.programStackDescription = [CalculatorBrain descriptionOfProgram:self.brain.program];
+    self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.programStackDescription];
 }
 - (IBAction)undoPressed {
     if (self.userIsInTheMiddleOfEnteringANumber) {

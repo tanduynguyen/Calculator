@@ -34,7 +34,6 @@
 }
 
 + (id)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
-    id result;
     
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
