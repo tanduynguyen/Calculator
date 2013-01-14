@@ -128,10 +128,13 @@
 //    self.stackTest = [NSString stringWithFormat:@"%@ %@", self.stackTest, operation];
     
     
-    
+    id result = [self.brain performOperation:operation];
 
-    double result = [self.brain performOperation:operation];
-    self.display.text = [NSString stringWithFormat:@"%g", result];
+    if ([result isKindOfClass:[NSString class]]) {
+        self.display.text = [NSString stringWithFormat:@"%@", result];
+    } else if ([result isKindOfClass:[NSNumber class]]) {
+        self.display.text = [NSString stringWithFormat:@"%g", [result doubleValue]];
+    }
     
     self.stackTest = [CalculatorBrain descriptionOfProgram:self.brain.program];
     self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.stackTest];
@@ -142,7 +145,12 @@
                                     [[NSNumber alloc] initWithDouble:3], @"a",
                                     [[NSNumber alloc] initWithDouble:-4], @"x", nil];
     
-    self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.variableValues]];
+    id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.variableValues];
+    if ([result isKindOfClass:[NSString class]]) {
+        self.display.text = [NSString stringWithFormat:@"%@", result];
+    } else if ([result isKindOfClass:[NSNumber class]]) {
+        self.display.text = [NSString stringWithFormat:@"%g", [result doubleValue]];
+    }
     
     NSMutableString *variableValueDescription = [[NSMutableString alloc] initWithString:@""];
     for (id key in self.variableValues) {
@@ -156,6 +164,8 @@
 }
 
 - (IBAction)signPressed {
+    if ([self.display.text isEqualToString:@"0"])
+        return;
 //    self.display.text = [NSString stringWithFormat:@"%g",[self.display.text doubleValue] * -1];
     if (![self.display.text hasPrefix:@"-"]) {
         self.display.text = [@"-" stringByAppendingString:self.display.text];
