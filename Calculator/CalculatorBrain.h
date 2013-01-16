@@ -17,8 +17,10 @@
 - (void)clearOperandStack;
 - (void)popAnObjectOutOfProgramStack;
 
+
 + (id)runProgram:(id)program;
 + (id)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues;
 + (NSString *)descriptionOfProgram:(id)program;
++ (NSString *) descriptionOfTopOfStackWithProgram:(id)program;
 + (NSSet *)variablesUsedInProgram:(id)program;
 @end

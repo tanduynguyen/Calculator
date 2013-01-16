@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GraphView.h"
 
 @interface GraphViewController : UIViewController
+
+@property (nonatomic, strong) id program;
+
+@property (weak, nonatomic) IBOutlet UILabel *graphName;
+
 
 @end

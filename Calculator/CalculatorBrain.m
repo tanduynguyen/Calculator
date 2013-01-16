@@ -9,11 +9,20 @@
 #import "CalculatorBrain.h"
 
 @interface CalculatorBrain()
-@property (nonatomic,strong) NSMutableArray *programStack;
+
+@property (nonatomic, strong) NSMutableArray *programStack;
+@property (nonatomic, strong) NSMutableDictionary *unaryOperations;
 
 @end
 
 @implementation CalculatorBrain
+
+typedef double (^unary_operation_t)(double op);
+
+- (void)addUnaryOperation:(NSString *)op whichExecutesBlock:(unary_operation_t)opBlock {
+    [self.unaryOperations setObject:opBlock forKey:op];    
+}
+
 
 - (NSMutableArray *)programStack {
     if (!_programStack) {
@@ -143,6 +152,35 @@
     return multiProgramDescription;
 }
 
++ (NSString *) descriptionOfTopOfStackWithProgram:(id)program {
+    NSMutableArray *stack;
+    if ([program isKindOfClass:[NSArray class]]) {
+        stack = [program mutableCopy];
+    }
+    
+    NSString *multiProgramDescription;
+    if (stack.count > 0) {
+        NSString *description = [CalculatorBrain descriptionOfTopOfStack:stack];
+        
+        if ([description hasPrefix:@"("] && [description hasSuffix:@")"]) {
+            NSInteger charIndex = [description length] - 2;
+            if (charIndex > 0) {
+                NSRange range = {.location = 1, .length = charIndex};
+                description = [description substringWithRange:range];
+            }
+            
+        }
+        
+        if (multiProgramDescription) {
+            multiProgramDescription = [NSString stringWithFormat:@"%@, %@", multiProgramDescription, description];
+        } else {
+            multiProgramDescription = description;
+        }
+    }
+    
+    return multiProgramDescription;
+}
+
 - (void)pushOperand:(double)operand {
     NSNumber *operandObject = [NSNumber numberWithDouble:operand];
     [self.programStack addObject:operandObject];
@@ -254,7 +292,7 @@
 }
 
 
-- (id)performOperation:(NSString *)operation {
+- (id)performOperation:(NSString *)operation {    
     if (operation) {
         [self.programStack addObject:operation];
     }

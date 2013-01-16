@@ -8,6 +8,7 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
+#import "GraphViewController.h"
 
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
@@ -21,19 +22,22 @@
 
 - (void)awakeFromNib {
     self.userIsInTheMiddleOfEnteringANumber = YES;
+    
+//    typedef double (^unary_operation_t)(double op);
+    
+//    unary_operation_t square;
+//    square = ^(double operand) { // the value of the square variable is a block
+//        return operand * operand;
+//    };
+    
+//    double (^square)(double op) = ^(double op) { return op * op; };
+//    
+//    double squareOfFive = square(square(5.0));
+//    
+//    NSLog([NSString stringWithFormat:@"%g", squareOfFive]);
+
 }
 
-
-//- (id)initWithNibName:(NSString *)nibNameOrNilString bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNilString bundle:nibBundleOrNil];
-//    
-//    if (self) {
-//
-//    }
-//    
-//    return self;
-//}
 
 - (CalculatorBrain *)brain {
     if (!_brain) {
@@ -55,6 +59,14 @@
     }
     return _variableValues;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(GraphViewController *)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowGraph"]) {
+        [segue.destinationViewController setProgram:self.brain.program];
+    }
+}
+
 
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *pressedDigit = sender.currentTitle;
@@ -195,6 +207,7 @@
     self.programStackDescription = [CalculatorBrain descriptionOfProgram:self.brain.program];
     self.stackDisplay.text = [NSString stringWithFormat:@"%@ =", self.programStackDescription];
 }
+
 - (IBAction)undoPressed {
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self backspacePressed];
