@@ -8,15 +8,35 @@
 
 #import "GraphView.h"
 
-#define SCALE 10
+#define DEFAULT_SCALE 10
 
 @implementation GraphView
+
+@synthesize scale = _scale;
+
+- (void)setScale:(float)scale {    
+    if (scale < 0) {
+        scale = 0;
+    } else  if (scale > 100) {
+        scale = 100;
+    }
+    _scale = scale;
+    [self setNeedsDisplay];
+}
+
+- (float)scale
+{
+    if (!_scale) {
+        _scale = DEFAULT_SCALE;
+    }
+    return _scale;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        // Initialization code        
     }
     return self;
 }
@@ -29,11 +49,12 @@
     midPoint.x = self.bounds.origin.x + self.bounds.size.width / 2;
     midPoint.y = self.bounds.origin.y + self.bounds.size.height / 2;
    
+    
     CGRect myRect;
     myRect.size.height = self.frame.size.height;
     myRect.size.width = self.frame.size.width;
     
-    [AxesDrawer drawAxesInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) originAtPoint:midPoint scale:SCALE];
+    [AxesDrawer drawAxesInRect:myRect originAtPoint:midPoint scale:self.scale];
     
     CGContextSetLineWidth(context, 10);
     [[UIColor blueColor] setStroke];
@@ -42,11 +63,11 @@
     CGContextSetFillColorWithColor(context, [[UIColor blueColor] CGColor]);
 
     
-    for (float x = -1 * self.bounds.origin.x; x < myRect.size.width - self.bounds.origin.x; x++)
+    for (float x = -1 * midPoint.x; x < myRect.size.width - midPoint.x; x++)
     {
         float y = [self.dataSource getYScaleValue:self withX:x / self.scale];
         
-        CGContextFillRect(context, CGRectMake(self.bounds.origin.x + x, self.bounds.origin.y - y * self.scale, 2, 2));
+        CGContextFillRect(context, CGRectMake(midPoint.x + x, midPoint.y - y * self.scale, 2, 2));
         
 
 //    float xScale = x * (myRect.origin.x - self.bounds.origin.x)/SCALE;
