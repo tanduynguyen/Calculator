@@ -13,8 +13,6 @@
 
 @protocol GraphViewDataSource <NSObject>
 
-@property (nonatomic) double xVal;
-
 - (float)getYScaleValue:(GraphView *)sender withX:(float)x;
 
 @end
@@ -22,6 +20,5 @@
 @interface GraphView : UIView
 
 @property (nonatomic, weak) IBOutlet id <GraphViewDataSource> dataSource;
-@property float scale;
 
 @end

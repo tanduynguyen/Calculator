@@ -119,7 +119,23 @@ typedef double (^unary_operation_t)(double op);
         }
     } else {
         description = [NSString stringWithFormat:@"%g", [topOfStack doubleValue]];
+    }    
+
+    return description;
+}
+
++ (NSString *)descriptionOfAStack:(NSMutableArray *)stack
+{
+    NSString *description = [self descriptionOfTopOfStack:stack];    
+    
+    if ([description hasPrefix:@"("] && [description hasSuffix:@")"]) {
+        NSInteger charIndex = [description length] - 2;
+        if (charIndex > 0) {
+            NSRange range = {.location = 1, .length = charIndex};
+            description = [description substringWithRange:range];
+        }
     }
+    
     return description;
 }
 
@@ -131,54 +147,21 @@ typedef double (^unary_operation_t)(double op);
     
     NSString *multiProgramDescription;
     while (stack.count > 0) {
-        NSString *description = [CalculatorBrain descriptionOfTopOfStack:stack];
-        
-        if ([description hasPrefix:@"("] && [description hasSuffix:@")"]) {
-            NSInteger charIndex = [description length] - 2;
-            if (charIndex > 0) {
-                NSRange range = {.location = 1, .length = charIndex};
-                description = [description substringWithRange:range];
-            }
-            
-        }
+        NSString *description = [self descriptionOfAStack:stack];
         
         if (multiProgramDescription) {
             multiProgramDescription = [NSString stringWithFormat:@"%@, %@", multiProgramDescription, description];
         } else {
             multiProgramDescription = description;
-        }
+        }        
+        
     }
 
     return multiProgramDescription;
 }
 
-+ (NSString *) descriptionOfTopOfStackWithProgram:(id)program {
-    NSMutableArray *stack;
-    if ([program isKindOfClass:[NSArray class]]) {
-        stack = [program mutableCopy];
-    }
-    
-    NSString *multiProgramDescription;
-    if (stack.count > 0) {
-        NSString *description = [CalculatorBrain descriptionOfTopOfStack:stack];
-        
-        if ([description hasPrefix:@"("] && [description hasSuffix:@")"]) {
-            NSInteger charIndex = [description length] - 2;
-            if (charIndex > 0) {
-                NSRange range = {.location = 1, .length = charIndex};
-                description = [description substringWithRange:range];
-            }
-            
-        }
-        
-        if (multiProgramDescription) {
-            multiProgramDescription = [NSString stringWithFormat:@"%@, %@", multiProgramDescription, description];
-        } else {
-            multiProgramDescription = description;
-        }
-    }
-    
-    return multiProgramDescription;
++ (NSString *) descriptionOfTopOfProgram:(id)program {
+    return [self descriptionOfAStack:[program mutableCopy]];
 }
 
 - (void)pushOperand:(double)operand {

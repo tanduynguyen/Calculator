@@ -21,7 +21,6 @@
 		8D8EF2FA169ACD7F00A19C5B /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */; };
 		8D8EF302169AD4A300A19C5B /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */; };
 		8D91CA1116A4E581001EF0D7 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1016A4E581001EF0D7 /* GraphView.m */; };
-		8D98560A16A692870098BF74 /* AxesDrawer.h in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1316A4E5F3001EF0D7 /* AxesDrawer.h */; };
 		8D98560B16A692870098BF74 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */; };
 		8DC14EF916A416BB004C6432 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC14EF816A416BB004C6432 /* GraphViewController.m */; };
 /* End PBXBuildFile section */
@@ -199,7 +198,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D98560A16A692870098BF74 /* AxesDrawer.h in Sources */,
 				8D98560B16A692870098BF74 /* AxesDrawer.m in Sources */,
 				8D8EF2E7169ACD7F00A19C5B /* main.m in Sources */,
 				8D8EF2EB169ACD7F00A19C5B /* CalculatorAppDelegate.m in Sources */,

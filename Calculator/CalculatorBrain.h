@@ -21,6 +21,6 @@
 + (id)runProgram:(id)program;
 + (id)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues;
 + (NSString *)descriptionOfProgram:(id)program;
-+ (NSString *) descriptionOfTopOfStackWithProgram:(id)program;
++ (NSString *) descriptionOfTopOfProgram:(id)program;
 + (NSSet *)variablesUsedInProgram:(id)program;
 @end

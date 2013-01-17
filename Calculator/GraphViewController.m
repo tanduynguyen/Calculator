@@ -11,7 +11,7 @@
 #import "CalculatorBrain.h"
 
 
-@interface GraphViewController () <GraphViewDataSource>
+@interface GraphViewController ()
 
 @property (weak, nonatomic) IBOutlet GraphView *graphView;
 
@@ -23,30 +23,40 @@
 
 - (void)setGraphView:(GraphView *)graphView
 {
-    _graphView = graphView;
-//    [self.faceView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.faceView action:@selector(pinch:)]];
-//    [self.faceView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleHappinessGuesture:)]];
-    self.graphView.dataSource = self;
+    _graphView = graphView;    
+    
+    self.graphView.dataSource = self;   
+
+    // Triple-tapping (moves the origin of the graph to the point of the triple-tap)
+    UITapGestureRecognizer *tapGestureRegnizer = [[UITapGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(tappingGraph:)];
+    tapGestureRegnizer.numberOfTapsRequired = 3;
+    [self.graphView addGestureRecognizer:tapGestureRegnizer];
+    
+    // Panning (moves the entire graph, including axes, to follow the touch around)
+    [self.graphView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(panningGraph:)]];
+    
+    // Pinching (adjusts your view’s scale)
+    [self.graphView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.graphView action:@selector(pinchingGraph:)]];
+      
+    [self.graphView setNeedsDisplay];
 }
 
 - (void)setProgram:(id)program
 {
     if (!_program) {
         _program = program;
+        [self.graphView setNeedsDisplay];
     }    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
-
-    self.graphName.text = [CalculatorBrain descriptionOfTopOfStackWithProgram:self.program];
     
-    if ([self.graphName.text isEqualToString:@""]) {
-        self.graphName.text = @"0";
-    }
-    
-    self.graphName.text = [@"f(x) = " stringByAppendingString:self.graphName.text];
+    if ([self.program count] > 0)
+    {
+        self.title = [NSString stringWithFormat:@"f(x) = %@",[CalculatorBrain descriptionOfTopOfProgram:self.program]];    
+    }    
 }
 
 - (float)getYScaleValue:(GraphView *)sender
