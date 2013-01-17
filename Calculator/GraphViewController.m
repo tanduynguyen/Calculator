@@ -9,17 +9,31 @@
 
 #import "GraphViewController.h"
 #import "CalculatorBrain.h"
+#import "SplitViewBarButtonItemPresenter.h"
 
 
 @interface GraphViewController ()
 
 @property (weak, nonatomic) IBOutlet GraphView *graphView;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
 
 @end
 
 @implementation GraphViewController
 
 @synthesize graphView = _graphView;
+
+
+//- (void)setSplitBarButtonItem:(UIBarButtonItem *)splitBarButtonItem
+//{
+//    if (_splitBarButtonItem != splitBarButtonItem) {
+//        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+//        if (_splitBarButtonItem) [toolbarItems removeObject:_splitBarButtonItem];
+//        if (splitBarButtonItem) [toolbarItems insertObject:splitBarButtonItem atIndex:0];
+//        self.toolbar.items = toolbarItems;
+//        _splitBarButtonItem = splitBarButtonItem;
+//    }
+//}
 
 - (void)setGraphView:(GraphView *)graphView
 {
