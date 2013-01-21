@@ -9,10 +9,10 @@
 
 #import "GraphViewController.h"
 #import "CalculatorBrain.h"
-#import "SplitViewBarButtonItemPresenter.h"
+#include "CalculatorProgramsTableViewController.h"
 
 
-@interface GraphViewController ()
+@interface GraphViewController () <GraphViewDataSource>
 
 @property (weak, nonatomic) IBOutlet GraphView *graphView;
 @property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
@@ -22,18 +22,39 @@
 @implementation GraphViewController
 
 @synthesize graphView = _graphView;
+@synthesize splitBarButtonItem = _splitBarButtonItem;
+@synthesize toolbar = _toolbar;
+
+- (void)setSplitBarButtonItem:(UIBarButtonItem *)splitBarButtonItem
+{
+    if (_splitBarButtonItem != splitBarButtonItem) {
+        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+        if (_splitBarButtonItem) [toolbarItems removeObject:_splitBarButtonItem];
+        if (splitBarButtonItem) [toolbarItems insertObject:splitBarButtonItem atIndex:0];
+        self.toolbar.items = toolbarItems;
+        _splitBarButtonItem = splitBarButtonItem;
+    }
+}
 
 
-//- (void)setSplitBarButtonItem:(UIBarButtonItem *)splitBarButtonItem
-//{
-//    if (_splitBarButtonItem != splitBarButtonItem) {
-//        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-//        if (_splitBarButtonItem) [toolbarItems removeObject:_splitBarButtonItem];
-//        if (splitBarButtonItem) [toolbarItems insertObject:splitBarButtonItem atIndex:0];
-//        self.toolbar.items = toolbarItems;
-//        _splitBarButtonItem = splitBarButtonItem;
-//    }
-//}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return YES;
+}
+
+- (void) setProgram:(id)program
+{
+    _program = program;
+    
+    self.title = [NSString stringWithFormat:@"f(x) = %@",[CalculatorBrain descriptionOfTopOfProgram:self.program]];    
+    
+    for (UIBarButtonItem *item in self.toolbar.items) {
+       if (item.tag == 1)
+           item.title = self.title;
+    }
+    
+    [self.graphView setNeedsDisplay];
+}
 
 - (void)setGraphView:(GraphView *)graphView
 {
@@ -55,22 +76,9 @@
     [self.graphView setNeedsDisplay];
 }
 
-- (void)setProgram:(id)program
-{
-    if (!_program) {
-        _program = program;
-        [self.graphView setNeedsDisplay];
-    }    
-}
-
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
-    
-    if ([self.program count] > 0)
-    {
-        self.title = [NSString stringWithFormat:@"f(x) = %@",[CalculatorBrain descriptionOfTopOfProgram:self.program]];    
-    }    
+    [super viewDidLoad]; 
 }
 
 - (float)getYScaleValue:(GraphView *)sender
@@ -86,6 +94,29 @@
         y = [result floatValue];
     }
     return y;
+}
+
+
+#define FAVORITES_KEY @"CalculatorGraphViewController.Favorites"
+
+- (IBAction)addToFavorites
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY] mutableCopy];
+    if (!favorites) {
+        favorites = [NSMutableArray array];
+    }
+    [favorites addObject:self.program];
+    [defaults setValue:favorites forKey:FAVORITES_KEY];
+    [defaults synchronize];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show Favorite Graphs"]) {
+        NSArray *programs = [[NSUserDefaults standardUserDefaults] objectForKey:FAVORITES_KEY];
+        [(CalculatorProgramsTableViewController *) segue.destinationViewController setPrograms:programs];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

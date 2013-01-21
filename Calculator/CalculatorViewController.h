@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RotatableViewController.h"
 
-@interface CalculatorViewController : UIViewController
+@interface CalculatorViewController : RotatableViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *display;
 @property (strong, nonatomic) IBOutlet UILabel *stackDisplay;

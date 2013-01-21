@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "GraphView.h"
+#import "RotatableViewController.h"
 #import "SplitViewBarButtonItemPresenter.h"
 
-@interface GraphViewController : UIViewController <GraphViewDataSource>
+@interface GraphViewController : RotatableViewController <SplitViewBarButtonItemPresenter>
 
 @property (nonatomic, strong) id program;
 
 @property (weak, nonatomic) IBOutlet UILabel *graphName;
-
-
 
 @end

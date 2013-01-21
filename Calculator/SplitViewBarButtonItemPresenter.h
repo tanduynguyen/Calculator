@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol SplitViewBarButtonItemPresenter <NSObject>
+@protocol SplitViewBarButtonItemPresenter
+
 @property (nonatomic, strong) UIBarButtonItem *splitBarButtonItem;
+
 @end

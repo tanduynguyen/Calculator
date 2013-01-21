@@ -9,10 +9,6 @@
 #import "RotatableViewController.h"
 #import "SplitViewBarButtonItemPresenter.h"
 
-@interface RotatableViewController ()
-
-@end
-
 @implementation RotatableViewController
 
 - (void)awakeFromNib

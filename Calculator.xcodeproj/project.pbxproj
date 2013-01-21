@@ -11,19 +11,22 @@
 		8D8EF2DD169ACD7F00A19C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8EF2DC169ACD7F00A19C5B /* Foundation.framework */; };
 		8D8EF2DF169ACD7F00A19C5B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8EF2DE169ACD7F00A19C5B /* CoreGraphics.framework */; };
 		8D8EF2E5169ACD7F00A19C5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2E3169ACD7F00A19C5B /* InfoPlist.strings */; };
-		8D8EF2E7169ACD7F00A19C5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2E6169ACD7F00A19C5B /* main.m */; };
-		8D8EF2EB169ACD7F00A19C5B /* CalculatorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2EA169ACD7F00A19C5B /* CalculatorAppDelegate.m */; };
 		8D8EF2ED169ACD7F00A19C5B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2EC169ACD7F00A19C5B /* Default.png */; };
 		8D8EF2EF169ACD7F00A19C5B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2EE169ACD7F00A19C5B /* Default@2x.png */; };
 		8D8EF2F1169ACD7F00A19C5B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F0169ACD7F00A19C5B /* Default-568h@2x.png */; };
 		8D8EF2F4169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F2169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard */; };
 		8D8EF2F7169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F5169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard */; };
-		8D8EF2FA169ACD7F00A19C5B /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */; };
-		8D8EF302169AD4A300A19C5B /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */; };
-		8D91CA1116A4E581001EF0D7 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1016A4E581001EF0D7 /* GraphView.m */; };
-		8D98560B16A692870098BF74 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */; };
-		8D9E5A7216A79D6100B6C6D8 /* RotatableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9E5A7116A79D6100B6C6D8 /* RotatableViewController.m */; };
-		8DC14EF916A416BB004C6432 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC14EF816A416BB004C6432 /* GraphViewController.m */; };
+		8D90D62916AC67D600E07A1A /* RotatableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D62616AC5D7A00E07A1A /* RotatableViewController.m */; };
+		8D90D62A16AC67D600E07A1A /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */; };
+		8D90D62B16AC67D600E07A1A /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */; };
+		8D90D62C16AC67D600E07A1A /* CalculatorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2EA169ACD7F00A19C5B /* CalculatorAppDelegate.m */; };
+		8D90D62D16AC67D600E07A1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF2E6169ACD7F00A19C5B /* main.m */; };
+		8D90D62E16AC67D600E07A1A /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */; };
+		8D90D62F16AC67D600E07A1A /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC14EF816A416BB004C6432 /* GraphViewController.m */; };
+		8D90D63016AC67D600E07A1A /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D91CA1016A4E581001EF0D7 /* GraphView.m */; };
+		8D90D63316AC75E400E07A1A /* CalculatorProgramsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D90D63216AC75E300E07A1A /* CalculatorProgramsTableViewController.m */; };
+		8D9B102816ACD2EE00E36138 /* favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9B102616ACD2EE00E36138 /* favorites.png */; };
+		8D9B102916ACD2EE00E36138 /* icon_favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D9B102716ACD2EE00E36138 /* icon_favorite.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,13 +49,17 @@
 		8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 		8D8EF300169AD4A300A19C5B /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
+		8D90D62516AC5D7A00E07A1A /* RotatableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableViewController.h; sourceTree = "<group>"; };
+		8D90D62616AC5D7A00E07A1A /* RotatableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableViewController.m; sourceTree = "<group>"; };
+		8D90D62716AC5D7A00E07A1A /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
+		8D90D63116AC75E300E07A1A /* CalculatorProgramsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorProgramsTableViewController.h; sourceTree = "<group>"; };
+		8D90D63216AC75E300E07A1A /* CalculatorProgramsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorProgramsTableViewController.m; sourceTree = "<group>"; };
 		8D91CA0F16A4E581001EF0D7 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		8D91CA1016A4E581001EF0D7 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		8D91CA1316A4E5F3001EF0D7 /* AxesDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
 		8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AxesDrawer.m; sourceTree = "<group>"; };
-		8D9E5A7016A79D6100B6C6D8 /* RotatableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableViewController.h; sourceTree = "<group>"; };
-		8D9E5A7116A79D6100B6C6D8 /* RotatableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableViewController.m; sourceTree = "<group>"; };
-		8D9E5A7416A79E0100B6C6D8 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
+		8D9B102616ACD2EE00E36138 /* favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorites.png; sourceTree = "<group>"; };
+		8D9B102716ACD2EE00E36138 /* icon_favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_favorite.png; sourceTree = "<group>"; };
 		8DC14EF716A416BB004C6432 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		8DC14EF816A416BB004C6432 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,24 +108,25 @@
 		8D8EF2E0169ACD7F00A19C5B /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				8D9E5A7416A79E0100B6C6D8 /* SplitViewBarButtonItemPresenter.h */,
-				8D9E5A7016A79D6100B6C6D8 /* RotatableViewController.h */,
-				8D9E5A7116A79D6100B6C6D8 /* RotatableViewController.m */,
-				8D91CA1316A4E5F3001EF0D7 /* AxesDrawer.h */,
-				8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */,
-				8D8EF2E9169ACD7F00A19C5B /* CalculatorAppDelegate.h */,
-				8D8EF2EA169ACD7F00A19C5B /* CalculatorAppDelegate.m */,
-				8D8EF2F2169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard */,
-				8D8EF2F5169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard */,
 				8D8EF2F8169ACD7F00A19C5B /* CalculatorViewController.h */,
 				8D8EF2F9169ACD7F00A19C5B /* CalculatorViewController.m */,
-				8D8EF2E1169ACD7F00A19C5B /* Supporting Files */,
+				8D8EF2F2169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard */,
+				8D8EF2F5169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard */,
 				8D8EF300169AD4A300A19C5B /* CalculatorBrain.h */,
 				8D8EF301169AD4A300A19C5B /* CalculatorBrain.m */,
 				8DC14EF716A416BB004C6432 /* GraphViewController.h */,
 				8DC14EF816A416BB004C6432 /* GraphViewController.m */,
 				8D91CA0F16A4E581001EF0D7 /* GraphView.h */,
 				8D91CA1016A4E581001EF0D7 /* GraphView.m */,
+				8D91CA1316A4E5F3001EF0D7 /* AxesDrawer.h */,
+				8D91CA1416A4E5F3001EF0D7 /* AxesDrawer.m */,
+				8D9B102516ACD2EE00E36138 /* Resoures */,
+				8D8EF2E1169ACD7F00A19C5B /* Supporting Files */,
+				8D90D63116AC75E300E07A1A /* CalculatorProgramsTableViewController.h */,
+				8D90D63216AC75E300E07A1A /* CalculatorProgramsTableViewController.m */,
+				8D90D62516AC5D7A00E07A1A /* RotatableViewController.h */,
+				8D90D62616AC5D7A00E07A1A /* RotatableViewController.m */,
+				8D90D62716AC5D7A00E07A1A /* SplitViewBarButtonItemPresenter.h */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -126,6 +134,8 @@
 		8D8EF2E1169ACD7F00A19C5B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8D8EF2E9169ACD7F00A19C5B /* CalculatorAppDelegate.h */,
+				8D8EF2EA169ACD7F00A19C5B /* CalculatorAppDelegate.m */,
 				8D8EF2E2169ACD7F00A19C5B /* Calculator-Info.plist */,
 				8D8EF2E3169ACD7F00A19C5B /* InfoPlist.strings */,
 				8D8EF2E6169ACD7F00A19C5B /* main.m */,
@@ -135,6 +145,15 @@
 				8D8EF2F0169ACD7F00A19C5B /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8D9B102516ACD2EE00E36138 /* Resoures */ = {
+			isa = PBXGroup;
+			children = (
+				8D9B102616ACD2EE00E36138 /* favorites.png */,
+				8D9B102716ACD2EE00E36138 /* icon_favorite.png */,
+			);
+			path = Resoures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +214,8 @@
 				8D8EF2F1169ACD7F00A19C5B /* Default-568h@2x.png in Resources */,
 				8D8EF2F4169ACD7F00A19C5B /* MainStoryboard_iPhone.storyboard in Resources */,
 				8D8EF2F7169ACD7F00A19C5B /* MainStoryboard_iPad.storyboard in Resources */,
+				8D9B102816ACD2EE00E36138 /* favorites.png in Resources */,
+				8D9B102916ACD2EE00E36138 /* icon_favorite.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,14 +226,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D98560B16A692870098BF74 /* AxesDrawer.m in Sources */,
-				8D8EF2E7169ACD7F00A19C5B /* main.m in Sources */,
-				8D8EF2EB169ACD7F00A19C5B /* CalculatorAppDelegate.m in Sources */,
-				8D8EF2FA169ACD7F00A19C5B /* CalculatorViewController.m in Sources */,
-				8D8EF302169AD4A300A19C5B /* CalculatorBrain.m in Sources */,
-				8DC14EF916A416BB004C6432 /* GraphViewController.m in Sources */,
-				8D91CA1116A4E581001EF0D7 /* GraphView.m in Sources */,
-				8D9E5A7216A79D6100B6C6D8 /* RotatableViewController.m in Sources */,
+				8D90D62916AC67D600E07A1A /* RotatableViewController.m in Sources */,
+				8D90D62A16AC67D600E07A1A /* CalculatorViewController.m in Sources */,
+				8D90D62B16AC67D600E07A1A /* AxesDrawer.m in Sources */,
+				8D90D62C16AC67D600E07A1A /* CalculatorAppDelegate.m in Sources */,
+				8D90D62D16AC67D600E07A1A /* main.m in Sources */,
+				8D90D62E16AC67D600E07A1A /* CalculatorBrain.m in Sources */,
+				8D90D62F16AC67D600E07A1A /* GraphViewController.m in Sources */,
+				8D90D63016AC67D600E07A1A /* GraphView.m in Sources */,
+				8D90D63316AC75E400E07A1A /* CalculatorProgramsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,24 @@
 
 @implementation CalculatorViewController
 
+- (GraphViewController *)splitViewGraphViewController
+{
+    id hvc = [self.splitViewController.viewControllers lastObject];
+    if (![hvc isKindOfClass:[GraphViewController class]]) {
+        hvc = nil;
+    }
+    return hvc;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ([self splitViewGraphViewController]) return YES;
+    else {
+        // Return YES for supported orientations
+        return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    }
+}
+
 - (void)awakeFromNib {
     self.userIsInTheMiddleOfEnteringANumber = YES;
     
@@ -49,6 +67,7 @@
 - (NSString *)programStackDescription {
     if (!_programStackDescription) {
         _programStackDescription = [[NSString alloc] init];
+
     }
     return _programStackDescription;
 }
@@ -58,6 +77,14 @@
         _variableValues = [[NSDictionary alloc] init];
     }
     return _variableValues;
+}
+
+- (IBAction)graphPressed {
+    if ([self splitViewGraphViewController]) {
+      [self splitViewGraphViewController].program = self.brain.program;
+    } else {
+      [self performSegueWithIdentifier:@"ShowGraph" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(GraphViewController *)sender
