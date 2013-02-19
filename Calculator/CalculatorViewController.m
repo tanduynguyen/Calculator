@@ -182,15 +182,13 @@
 
 - (IBAction)testPressed:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Test 1"]) {
-        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [[NSNumber alloc] initWithDouble:3], @"a",
-                               [[NSNumber alloc] initWithDouble:0], @"b",
-                               [[NSNumber alloc] initWithDouble:-4], @"x", nil];
+        self.variableValues = @{@"a": @3.0,
+                               @"b": @0.0,
+                               @"x": @-4.0};
     } else if ([sender.currentTitle isEqualToString:@"Test 2"]) {
-        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [[NSNumber alloc] initWithDouble:1], @"a",
-                               [[NSNumber alloc] initWithDouble:5], @"b",
-                               [[NSNumber alloc] initWithDouble:10], @"x", nil];
+        self.variableValues = @{@"a": @1.0,
+                               @"b": @5.0,
+                               @"x": @10.0};
     }
     
     
@@ -205,7 +203,7 @@
     for (id key in self.variableValues) {
         if ([key isKindOfClass:[NSString class]]) {
             NSString *variableName = key;
-            NSNumber *variableValue = [self.variableValues objectForKey:key];
+            NSNumber *variableValue = (self.variableValues)[key];
             [variableValueDescription appendFormat:@"%@ = %@  ", variableName, variableValue];
         }
     }

@@ -85,8 +85,7 @@
                    withX:(float)x
 {
     float y = 0;
-    NSDictionary *variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
-                           [[NSNumber alloc] initWithFloat:x], @"x", nil];
+    NSDictionary *variableValues = @{@"x": @(x)};
     
     id result = [CalculatorBrain runProgram:self.program usingVariableValues:variableValues];
     

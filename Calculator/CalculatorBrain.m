@@ -20,7 +20,7 @@
 typedef double (^unary_operation_t)(double op);
 
 - (void)addUnaryOperation:(NSString *)op whichExecutesBlock:(unary_operation_t)opBlock {
-    [self.unaryOperations setObject:opBlock forKey:op];    
+    (self.unaryOperations)[op] = opBlock;    
 }
 
 
@@ -165,7 +165,7 @@ typedef double (^unary_operation_t)(double op);
 }
 
 - (void)pushOperand:(double)operand {
-    NSNumber *operandObject = [NSNumber numberWithDouble:operand];
+    NSNumber *operandObject = @(operand);
     [self.programStack addObject:operandObject];
 }
 
@@ -194,7 +194,7 @@ typedef double (^unary_operation_t)(double op);
             } else if ([secondOperand isKindOfClass:[NSString class]]) {
                 return secondOperand;
             }else {
-                return [NSNumber numberWithDouble:([firstOperand doubleValue] + [secondOperand doubleValue])];
+                return @([firstOperand doubleValue] + [secondOperand doubleValue]);
             }
             
         } else if ([@"*" isEqualToString:operation]) {
@@ -205,7 +205,7 @@ typedef double (^unary_operation_t)(double op);
             } else if ([secondOperand isKindOfClass:[NSString class]]) {
                 return secondOperand;
             }else {
-                return [NSNumber numberWithDouble:([firstOperand doubleValue] * [secondOperand doubleValue])];
+                return @([firstOperand doubleValue] * [secondOperand doubleValue]);
             }
         } else if ([operation isEqualToString:@"-"]) {
             id firstOperand = [self popOperandOffProgramStack:stack usingVariableValues:variableValues];
@@ -215,7 +215,7 @@ typedef double (^unary_operation_t)(double op);
             } else if ([secondOperand isKindOfClass:[NSString class]]) {
                 return secondOperand;
             }else {
-                return [NSNumber numberWithDouble:([secondOperand doubleValue] - [firstOperand doubleValue])];
+                return @([secondOperand doubleValue] - [firstOperand doubleValue]);
             }
         } else if ([operation isEqualToString:@"/"]) {
             id divisor = [self popOperandOffProgramStack:stack usingVariableValues:variableValues];
@@ -229,7 +229,7 @@ typedef double (^unary_operation_t)(double op);
                     return @"divide by zero";
                 }
                 else {
-                    return [NSNumber numberWithDouble:([operand doubleValue] / [divisor doubleValue])];
+                    return @([operand doubleValue] / [divisor doubleValue]);
                 }
                 
             }
@@ -238,7 +238,7 @@ typedef double (^unary_operation_t)(double op);
             if ([operand isKindOfClass:[NSString class]]) {
                 return operand;
             } else {
-                return [NSNumber numberWithDouble:sin([operand doubleValue])];
+                return @(sin([operand doubleValue]));
             }
            
         } else if ([operation isEqualToString:@"cos"]) {
@@ -246,7 +246,7 @@ typedef double (^unary_operation_t)(double op);
             if ([operand isKindOfClass:[NSString class]]) {
                 return operand;
             } else {
-                return [NSNumber numberWithDouble:cos([operand doubleValue])];
+                return @(cos([operand doubleValue]));
             }
         } else if ([operation isEqualToString:@"sqrt"]) {
             id operand = [self popOperandOffProgramStack:stack usingVariableValues:variableValues];
@@ -254,14 +254,14 @@ typedef double (^unary_operation_t)(double op);
                 return operand;
             } else {
                 if ([operand doubleValue] >= 0) {
-                    return [NSNumber numberWithDouble:sqrt([operand doubleValue])];
+                    return @(sqrt([operand doubleValue]));
                 } else {
                     return @"square root of a negative number";
                 }
             }
  
         } else if ([operation isEqualToString:@"π"]) {
-            return [NSNumber numberWithDouble:M_PI];
+            return @M_PI;
         } else {
             //NSDictionary
             NSNumber *value = [variableValues valueForKey:operation];
